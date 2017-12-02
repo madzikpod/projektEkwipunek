@@ -60,6 +60,7 @@
     <Compile Include="Przedmiot.cs" />
     <Compile Include="Sebix.cs" />
     <Compile Include="TypowaGrazyna.cs" />
+    <Compile Include="Bonus.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
