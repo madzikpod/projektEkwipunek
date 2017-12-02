@@ -1,4 +1,4 @@
-﻿namespace PojektEkwipunek
+﻿namespace ProjektEkwipunek
 {
     partial class Form1
     {

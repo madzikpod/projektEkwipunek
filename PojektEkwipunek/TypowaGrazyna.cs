@@ -4,21 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PojektEkwipunek
+namespace ProjektEkwipunek
 {
     public class TypowaGrazyna : Postac
     {
         public TypowaGrazyna(string imie, int level) : base(imie, level)
         {
             
-            Moc = 10;
-            Obrona = 10;
-            Udzwig = 30;
+            Moc = 8;
+            Obrona = 8;
+            Inteligencja = 14;
+            Udzwig = 20;
             LevelUp(level);
         }
-        protected override void LevelUp(int level)
-        {
-            Moc += level;
-        }
+       
     }
 }

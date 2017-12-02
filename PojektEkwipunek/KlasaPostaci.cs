@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PojektEkwipunek
+namespace ProjektEkwipunek
 {
     public class KlasaPostaci
     {
@@ -14,8 +14,8 @@ namespace PojektEkwipunek
         }
         public Guid Id { get; private set; }
         public string Opis { get; protected set; }
-        public int Moc { get; protected set; }
-        public int Obrona { get; protected set; }
+        public double Moc { get; protected set; }
+        public double Obrona { get; protected set; }
         public double Udzwig { get; protected set; }
     }
 }
