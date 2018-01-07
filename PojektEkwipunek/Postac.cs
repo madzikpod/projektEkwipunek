@@ -13,7 +13,7 @@ namespace ProjektEkwipunek
             Imie = imie;
             Level = level;
             Id = Guid.NewGuid();
-            Ekwipenek = new List<Przedmiot>();
+            Ekwipunek = new List<Przedmiot>();
 
         }
         public Guid Id { get; private set; }
@@ -23,33 +23,142 @@ namespace ProjektEkwipunek
         public double Obrona { get; protected set; }
         public double Udzwig { get; protected set; }
         public double Inteligencja { get; protected set; }
-        public string Opis { get; protected set; }
+        public string Opis { get; set; }
         public double Obciazenie { get; private set; }
-        public List<Przedmiot> Ekwipenek { get; private set; }
+        public List<Przedmiot> Ekwipunek { get; private set; }
+        public Przedmiot NakrycieGlowy { get; private set; }
+        public Przedmiot LewaReka { get; private set; }
+        public Przedmiot PrawaReka { get; private set; }
+        public Przedmiot Stroj { get; private set; }
+        public Przedmiot Buty { get; private set; }
+
+        public void Zaloz(CzescCiala czescCiala, Przedmiot przedmiot)
+        {
+            if (przedmiot == null)
+            {
+                throw new Exception("Musisz podac przedmiot");
+            }
+            if (Ekwipunek.Find(x => x.Id == przedmiot.Id) == null)// nie ma tg predmiotu w ekwipunku
+            {
+                throw new Exception("Nie ma tego przedmiotu w ekwipunku");
+            }
+
+            Exception nieOdpowiednieMiejsce = new Exception("To nie jest odpowiednie miejsce na ten przedmiot");
+            Exception zajeteMiejsce = new Exception("To miejsce jet juz zajete");
+            switch (czescCiala)
+            {
+                case CzescCiala.Glowa:
+                    if (NakrycieGlowy != null)
+                    {
+                        throw zajeteMiejsce;
+                    }
+                    if (przedmiot.Typ != TypPrzedmiotu.NakrycieGlowy)
+                    {
+                        throw nieOdpowiednieMiejsce;
+                    }
+                        NakrycieGlowy = przedmiot;
+                    break;
+                case CzescCiala.LewaReka:
+                    if (LewaReka != null)
+                    {
+                        throw zajeteMiejsce;
+                    }
+                    if(przedmiot.Typ != TypPrzedmiotu.Bron)
+                    {
+                        throw nieOdpowiednieMiejsce;
+                    }
+                    LewaReka = przedmiot;
+                    break;
+                case CzescCiala.PrawaReka:
+                    if (PrawaReka != null)
+                    {
+                        throw zajeteMiejsce;
+                    }
+                    if (przedmiot.Typ != TypPrzedmiotu.Bron)
+                    {
+                        throw nieOdpowiednieMiejsce;
+                    }
+                    PrawaReka = przedmiot;
+                    break;
+                case CzescCiala.Tulow:
+                    if (Stroj != null)
+                    {
+                        throw zajeteMiejsce;
+                    }
+                    if (przedmiot.Typ != TypPrzedmiotu.Stroj)
+                    {
+                        throw nieOdpowiednieMiejsce;
+                    }
+                    Stroj = przedmiot;
+                    break;
+                case CzescCiala.Stopy:
+                    if (Buty != null)
+                    {
+                        throw zajeteMiejsce;
+                    }
+                    if (przedmiot.Typ != TypPrzedmiotu.Buty)
+                    {
+                        throw nieOdpowiednieMiejsce;
+                    }
+                    Buty = przedmiot;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public void Zdejmij(CzescCiala czescCiala)
+        {
+            switch (czescCiala)
+            {
+                case CzescCiala.Glowa:
+                    NakrycieGlowy = null;
+                    break;
+                case CzescCiala.LewaReka:
+                    LewaReka = null;
+                    break;
+                case CzescCiala.PrawaReka:
+                    PrawaReka = null;
+                    break;
+                case CzescCiala.Tulow:
+                    Stroj = null;
+                    break;
+                case CzescCiala.Stopy:
+                    Buty = null;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public bool DodajPrzedmiotDoEkwipunku(Przedmiot przedmiot)
         {
-            if (Ekwipenek.Find(przedmiotWEkwipunku => { return przedmiotWEkwipunku.Id == przedmiot.Id; }) != null)
+            //nie dodawac tg samego przedmiotu dwa razy
+            if (Ekwipunek.Find(przedmiotWEkwipunku => { return przedmiotWEkwipunku.Id == przedmiot.Id; }) != null)
             {
                 return false;
-                // TodDo przerobic na rzucanie wyjatkow
+                // ToDo przerobic na rzucanie wyjatkow
             }
             if (Udzwig < Obciazenie + przedmiot.Waga)
             {
                 return false;
             }
+
+
             Obciazenie += przedmiot.Waga;
-            Ekwipenek.Add(przedmiot);
+            Ekwipunek.Add(przedmiot);
 
             return true;
         }
-        public bool UsunPrzedmiotDoEkwipunku(Przedmiot przedmiot)
+        public bool UsunPrzedmiotZEkwipunku(Przedmiot przedmiot)
         {
-            if (Ekwipenek.Find(przedmiotWEkwipunku => { return przedmiotWEkwipunku.Id == przedmiot.Id; }) == null)
+            if (Ekwipunek.Find(przedmiotWEkwipunku => { return przedmiotWEkwipunku.Id == przedmiot.Id; }) == null)
             {
                 return false;
             }
             Obciazenie -= przedmiot.Waga;
-            Ekwipenek.Remove(przedmiot);
+            Ekwipunek.Remove(przedmiot);
 
             return true;
         }

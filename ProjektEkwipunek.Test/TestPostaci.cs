@@ -15,9 +15,9 @@ namespace ProjektEkwipunek.Test
         public void TestZwiekszaniaStatystykWrazZLevelem()
         {
             // Arrange
-            var postac = new TypowaGrazyna("Halina",1);
-            var postac2 = new TypowaGrazyna("Grazyna", 10);
-            var postac3 = new TypowaGrazyna("Grazyna", 25);
+            var postac = new Gimbus("Halina",1);
+            var postac2 = new Gimbus("Grazyna", 10);
+            var postac3 = new Gimbus("Grazyna", 25);
             // Act
 
             // Assert

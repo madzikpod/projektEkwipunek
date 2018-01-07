@@ -17,7 +17,7 @@ namespace ProjektEkwipunek.Test
             var wynik = postac.DodajPrzedmiotDoEkwipunku(helm);
             // Assert
             Assert.AreEqual(true, wynik);
-            Assert.AreEqual(1, postac.Ekwipenek.Count);
+            Assert.AreEqual(1, postac.Ekwipunek.Count);
             Assert.AreEqual(helm.Waga, postac.Obciazenie);
         }
         [TestMethod]
@@ -30,7 +30,7 @@ namespace ProjektEkwipunek.Test
             var wynik = postac.DodajPrzedmiotDoEkwipunku(helm);
             // Assert
             Assert.AreEqual(false, wynik);
-            Assert.AreEqual(0, postac.Ekwipenek.Count);
+            Assert.AreEqual(0, postac.Ekwipunek.Count);
             Assert.AreEqual(0, postac.Obciazenie);
         }
         [TestMethod]
@@ -44,7 +44,7 @@ namespace ProjektEkwipunek.Test
             var wynik = postac.DodajPrzedmiotDoEkwipunku(helm);
             // Assert
             Assert.AreEqual(false, wynik);
-            Assert.AreEqual(1, postac.Ekwipenek.Count);
+            Assert.AreEqual(1, postac.Ekwipunek.Count);
             Assert.AreEqual(helm.Waga, postac.Obciazenie);
         }
         [TestMethod]
@@ -56,10 +56,10 @@ namespace ProjektEkwipunek.Test
             // Act
             postac.DodajPrzedmiotDoEkwipunku(helm);
              postac.DodajPrzedmiotDoEkwipunku(helm);
-            var wynik = postac.UsunPrzedmiotDoEkwipunku(helm);
+            var wynik = postac.UsunPrzedmiotZEkwipunku(helm);
             // Assert
             Assert.AreEqual(true, wynik);
-            Assert.AreEqual(0, postac.Ekwipenek.Count);
+            Assert.AreEqual(0, postac.Ekwipunek.Count);
             Assert.AreEqual(0, postac.Obciazenie);
         }
         [TestMethod]
@@ -72,10 +72,10 @@ namespace ProjektEkwipunek.Test
             // Act
             postac.DodajPrzedmiotDoEkwipunku(helm);
            
-            var wynik = postac.UsunPrzedmiotDoEkwipunku(bron);
+            var wynik = postac.UsunPrzedmiotZEkwipunku(bron);
             // Assert
             Assert.AreEqual(false, wynik);
-            Assert.AreEqual(1, postac.Ekwipenek.Count);
+            Assert.AreEqual(1, postac.Ekwipunek.Count);
             Assert.AreEqual(helm.Waga, postac.Obciazenie);
         }
 
