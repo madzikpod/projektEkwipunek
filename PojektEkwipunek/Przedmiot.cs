@@ -50,7 +50,7 @@ namespace ProjektEkwipunek
         //właściwości ile i co zwiekszy przedmiot
         public List<string> Wlasciwosci { get; set; }
         public List<Bonus> Bonusy { get; private set; }
-        public KtoMozeNosic OgraniczeniaKlasowe { get; private set; }
+        public KtoMozeNosic OgraniczeniaKlasowe { get;  set; }
 
     }
 
@@ -61,7 +61,7 @@ namespace ProjektEkwipunek
     [Flags]
     public enum KtoMozeNosic
     {
-        Wszyscy = 14,
+        Wszyscy = 0,
         Janusz = 1,
         Grazyna = 2,
         Sebix = 4,

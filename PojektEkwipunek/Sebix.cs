@@ -10,6 +10,15 @@ namespace ProjektEkwipunek
     {
         public Sebix(string imie, int level) : base(imie, level)
         {
+            Klasa = new KlasaPostaci
+            {
+                Typ = TypPostaci.Sebix,
+                Moc = 14,
+                Obrona = 10,
+                Udzwig = 60,
+                Opis = "Przepotezny wladca osiedla, łatwy do rozpoznaia po czpce i dresie"
+            };
+
             Moc = 14;
             Obrona = 10;
             Inteligencja = 6;

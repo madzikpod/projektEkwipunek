@@ -16,6 +16,7 @@ namespace ProjektEkwipunek
             Ekwipunek = new List<Przedmiot>();
 
         }
+        public KlasaPostaci Klasa { get; protected set; }
         public Guid Id { get; private set; }
         public string Imie { get; private set; }
         public int Level { get; private set; }
@@ -42,9 +43,13 @@ namespace ProjektEkwipunek
             {
                 throw new Exception("Nie ma tego przedmiotu w ekwipunku");
             }
+            if ((int)Klasa.Typ != (int)przedmiot.OgraniczeniaKlasowe && przedmiot.OgraniczeniaKlasowe != KtoMozeNosic.Wszyscy)
+            {
+                throw new Exception("Ta postac nie moze nosic tego przedmiotu");
+            }
 
-            Exception nieOdpowiednieMiejsce = new Exception("To nie jest odpowiednie miejsce na ten przedmiot");
-            Exception zajeteMiejsce = new Exception("To miejsce jet juz zajete");
+            NieodpowiednieMiejsceExeption nieOdpowiednieMiejsce = new NieodpowiednieMiejsceExeption("To nie jest odpowiednie miejsce na ten przedmiot");
+            ZajeteMiejsceExeption zajeteMiejsce = new ZajeteMiejsceExeption("To miejsce jet juz zajete");
             switch (czescCiala)
             {
                 case CzescCiala.Glowa:
