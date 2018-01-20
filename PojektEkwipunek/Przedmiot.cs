@@ -31,7 +31,7 @@ namespace ProjektEkwipunek
             KtoMozeNosic ograniczenieKlasowe = KtoMozeNosic.Wszyscy,
             Dictionary<StatystykiPostaci, double> wymagania = null) : this(typ, nazwa, waga)
         {
-            this.Bonusy = bonusy;
+            this.Bonusy = bonusy ?? new List<Bonus>();
             this.Wlasciwosci = wlasciwosci;
             this.OgraniczeniaKlasowe = ograniczenieKlasowe;
             if (wymagania != null)

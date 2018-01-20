@@ -24,6 +24,49 @@ namespace ProjektEkwipunek
         public double Obrona { get; protected set; }
         public double Udzwig { get; protected set; }
         public double Inteligencja { get; protected set; }
+        public double BonusMoc
+        {
+            get
+            {
+                return ObliczBonus(StatystykiPostaci.Moc);
+            }
+        }
+        public double BonusObrona {
+            get {
+                return ObliczBonus(StatystykiPostaci.Obrona);
+            }
+        }
+        public double BonusInteligencja {
+            get
+            {
+                return ObliczBonus(StatystykiPostaci.Inteligencja);
+            }
+        }
+
+        private double ObliczBonus(StatystykiPostaci statystykiPostaci)
+        {
+            var sumaBonusow = 0.0;
+
+            var banusNakrycieGlowy = this.NakrycieGlowy?.Bonusy
+                                    .Where(bonus => bonus.DoCzego == statystykiPostaci)
+                                    .Sum(bonus => bonus.Premia) ?? 0;
+
+            var bonusLewejReki = this.LewaReka?.Bonusy
+                                    .Where(bonus => bonus.DoCzego == statystykiPostaci)
+                                    .Sum(bonus => bonus.Premia) ?? 0;
+            var bonusPrawejReki = this.PrawaReka?.Bonusy
+                                    .Where(bonus => bonus.DoCzego == statystykiPostaci)
+                                    .Sum(bonus => bonus.Premia) ?? 0;
+            var bonusStroj = this.Stroj?.Bonusy
+                                    .Where(bonus => bonus.DoCzego == statystykiPostaci)
+                                    .Sum(bonus => bonus.Premia) ?? 0;
+            var bonusButy = this.Buty?.Bonusy
+                                .Where(bonus => bonus.DoCzego == statystykiPostaci)
+                                .Sum(bonus => bonus.Premia) ?? 0;
+            sumaBonusow = banusNakrycieGlowy + bonusLewejReki + bonusPrawejReki + bonusStroj + bonusButy;
+            return sumaBonusow;
+        }
+
         public string Opis { get; set; }
         public double Obciazenie { get; private set; }
         public List<Przedmiot> Ekwipunek { get; private set; }
@@ -61,14 +104,15 @@ namespace ProjektEkwipunek
                     {
                         throw nieOdpowiednieMiejsce;
                     }
-                        NakrycieGlowy = przedmiot;
+                    NakrycieGlowy = przedmiot;
+
                     break;
                 case CzescCiala.LewaReka:
                     if (LewaReka != null)
                     {
                         throw zajeteMiejsce;
                     }
-                    if(przedmiot.Typ != TypPrzedmiotu.Bron)
+                    if (przedmiot.Typ != TypPrzedmiotu.Bron)
                     {
                         throw nieOdpowiednieMiejsce;
                     }

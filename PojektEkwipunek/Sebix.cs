@@ -16,7 +16,7 @@ namespace ProjektEkwipunek
                 Moc = 14,
                 Obrona = 10,
                 Udzwig = 60,
-                Opis = "Przepotezny wladca osiedla, łatwy do rozpoznaia po czpce i dresie"
+                Opis = "Przepotezny wladca osiedla, łatwy do rozpoznaia po czapce i dresie"
             };
 
             Moc = 14;
