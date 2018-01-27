@@ -68,7 +68,17 @@ namespace ProjektEkwipunek
         }
 
         public string Opis { get; set; }
-        public double Obciazenie { get; private set; }
+        public double Obciazenie { get
+            {
+                double suma = 0;
+                suma += LewaReka?.Waga ?? 0;
+                suma += PrawaReka?.Waga ?? 0;
+                suma += Stroj?.Waga ?? 0;
+                suma += Buty?.Waga ?? 0;
+                suma += NakrycieGlowy?.Waga ?? 0;
+                return suma;
+            }
+             }
         public List<Przedmiot> Ekwipunek { get; private set; }
         public Przedmiot NakrycieGlowy { get; private set; }
         public Przedmiot LewaReka { get; private set; }
@@ -195,7 +205,7 @@ namespace ProjektEkwipunek
             }
 
 
-            Obciazenie += przedmiot.Waga;
+            
             Ekwipunek.Add(przedmiot);
 
             return true;
@@ -206,7 +216,7 @@ namespace ProjektEkwipunek
             {
                 return false;
             }
-            Obciazenie -= przedmiot.Waga;
+            
             Ekwipunek.Remove(przedmiot);
 
             return true;

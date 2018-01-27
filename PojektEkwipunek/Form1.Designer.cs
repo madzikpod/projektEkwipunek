@@ -44,6 +44,7 @@
             this.obrona = new System.Windows.Forms.TextBox();
             this.inteligencja = new System.Windows.Forms.TextBox();
             this.liczbaPrzedmiotow = new System.Windows.Forms.TextBox();
+            this.Sklep = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -120,6 +121,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(960, 333);
             this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // ListaPostaci
             // 
@@ -187,11 +189,22 @@
             this.liczbaPrzedmiotow.Size = new System.Drawing.Size(74, 26);
             this.liczbaPrzedmiotow.TabIndex = 15;
             // 
+            // Sklep
+            // 
+            this.Sklep.Location = new System.Drawing.Point(667, 584);
+            this.Sklep.Name = "Sklep";
+            this.Sklep.Size = new System.Drawing.Size(75, 42);
+            this.Sklep.TabIndex = 16;
+            this.Sklep.Text = "Sklep";
+            this.Sklep.UseVisualStyleBackColor = true;
+            this.Sklep.Click += new System.EventHandler(this.Sklep_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 559);
+            this.ClientSize = new System.Drawing.Size(997, 638);
+            this.Controls.Add(this.Sklep);
             this.Controls.Add(this.liczbaPrzedmiotow);
             this.Controls.Add(this.inteligencja);
             this.Controls.Add(this.obrona);
@@ -210,6 +223,7 @@
             this.Controls.Add(this.OpisPostaci);
             this.Name = "Form1";
             this.Text = "EkwipunekGracza";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -234,6 +248,7 @@
         private System.Windows.Forms.TextBox obrona;
         private System.Windows.Forms.TextBox inteligencja;
         private System.Windows.Forms.TextBox liczbaPrzedmiotow;
+        private System.Windows.Forms.Button Sklep;
     }
 }
 
