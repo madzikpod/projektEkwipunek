@@ -21,7 +21,7 @@ namespace ProjektEkwipunek
             GlownyForm = form;
 
         }
-        private void WyswietlListePrzedmiotow()
+        public void WyswietlListePrzedmiotow()
         {
             DataTable dataTable;
 
@@ -47,26 +47,38 @@ namespace ProjektEkwipunek
                 row["Nazwa"] = przedmiot.Nazwa;
                 row["Waga"] = przedmiot.Waga;
                 string wymog = "";
-                foreach (var item in przedmiot.Wymagania)
+                if (przedmiot.Wymagania.Count != 0) // jezeli wymagania nie sa puste
                 {
-                    wymog += item.Key.ToString() + " = " + item.Value.ToString();
-                    wymog += ", \n";
+                    foreach (var item in przedmiot.Wymagania) // dla kazdego wymagania w przedmiocie
+                    {
+                        wymog += item.Key.ToString() + " = " + item.Value.ToString(); // okreslamy wymog na klucz i wartosc 
+                        wymog += ", \n";
+                    }
+                    row["Wymagania"] = wymog.Remove(wymog.Length - 3); //do wiersza wiersz wymagania przypisujemy bez ostatnich trzech znakow (entera tabulatora i przecinka)
                 }
-                row["Wymagania"] = wymog.Remove(wymog.Length - 3);
-                string wlsciwosc = "";
-                foreach (var item in przedmiot.Wlasciwosci)
+                
+                if(przedmiot.Wlasciwosci.Count !=0)
                 {
-                    wlsciwosc += item + ", \n";
+                    string wlsciwosc = "";
+                    foreach (var item in przedmiot.Wlasciwosci)
+                    {
+                        wlsciwosc += item + ", \n";
 
+                    }
+                    row["Właściwości"] = wlsciwosc.Remove(wlsciwosc.Length - 3);
                 }
-                row["Właściwości"] = wlsciwosc.Remove(wlsciwosc.Length - 3);
-                string bonus = "";
-                foreach (var item in przedmiot.Bonusy)
+
+                if (przedmiot.Bonusy.Count != 0)
                 {
-                    bonus += item.DoCzego + " = " + item.Premia;
-                    bonus += ", \n";
+                    string bonus = "";
+                    foreach (var item in przedmiot.Bonusy)
+                    {
+                        bonus += item.DoCzego + " = " + item.Premia;
+                        bonus += ", \n";
+                    }
+                    row["Bonusy"] = bonus.Remove(bonus.Length - 3);
                 }
-                row["Bonusy"] = bonus.Remove(bonus.Length - 3);
+                
                 //bonus = string.Join(", \n", przedmiot.Bonusy.Select(item => item.DoCzego + " = " + item.Premia));
                 //row["Bonusy"] = bonus;
 
@@ -81,7 +93,7 @@ namespace ProjektEkwipunek
             WyswietlListePrzedmiotow();
             this.chart1.Titles.Add("Statystyki");
             GlownyForm.Visible = false;
-            ZalozButton.Text = "Załóż " + Postac.Imie;
+            ZalozButton.Text += " "+ Postac.Imie;
 
         }
 
@@ -149,6 +161,38 @@ namespace ProjektEkwipunek
             {
                 MessageBox.Show("Nie można dodać do ekwipunku");
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var okno=new OknoPrzedmiotowForm(this);
+            okno.Show();
+        }
+
+        private void WrocButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void EdytujPrzedmiotButton_Click(object sender, EventArgs e)
+        {
+            if (ListaPrzedmiotowGrid.SelectedCells.Count == 0)
+            {
+                MessageBox.Show("Zaznacz przedmiot");
+                return;
+            }
+            var okno = new OknoPrzedmiotowForm(this,Gra.ListaPrzedmiotow[ ListaPrzedmiotowGrid.SelectedCells[0].RowIndex]);
+            okno.Show();
+
+
+        }
+
+        private void UsunPrzedmiotButton_Click(object sender, EventArgs e)
+        {
+            var zaznaczonyPrzedmiotIndex = ListaPrzedmiotowGrid.SelectedCells[0].RowIndex;
+                       
+            Gra.ListaPrzedmiotow.RemoveAt(zaznaczonyPrzedmiotIndex);
+            this.WyswietlListePrzedmiotow();
         }
     }
 }

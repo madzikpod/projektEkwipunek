@@ -58,6 +58,18 @@
     <Compile Include="Gimbus.cs" />
     <Compile Include="JanuszBiznesu.cs" />
     <Compile Include="KlasaPostaci.cs" />
+    <Compile Include="OknoPostaciForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoPostaciForm.Designer.cs">
+      <DependentUpon>OknoPostaciForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OknoPrzedmiotowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OknoPrzedmiotowForm.Designer.cs">
+      <DependentUpon>OknoPrzedmiotowForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Postac.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +87,12 @@
     <Compile Include="ZajeteMiejsceExeption.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoPostaciForm.resx">
+      <DependentUpon>OknoPostaciForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OknoPrzedmiotowForm.resx">
+      <DependentUpon>OknoPrzedmiotowForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

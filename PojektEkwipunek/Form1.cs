@@ -12,6 +12,7 @@ namespace ProjektEkwipunek
 {
     public partial class Form1 : Form
     {
+        public BindingList<Postac> bindinglist;
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +22,11 @@ namespace ProjektEkwipunek
             Gra.ListaPostaci[0].Ekwipunek.Add(Gra.ListaPrzedmiotow[1]);
 
 
-            ListaPostaci.DataSource = Gra.ListaPostaci;
+            //ListaPostaci.DataSource = Gra.ListaPostaci;
+            bindinglist  = new BindingList<Postac>(Gra.ListaPostaci);
+            BindingSource bSource = new BindingSource();
+            bSource.DataSource = bindinglist;
+            ListaPostaci.DataSource = bSource;
             ListaPostaci.DisplayMember = "Imie";
 
         }
@@ -34,6 +39,7 @@ namespace ProjektEkwipunek
 
         public void Wyswietl(Postac zaznaczonaPostac)
         {
+            if(zaznaczonaPostac == null) { return; }
             OpisPostaci.Text = zaznaczonaPostac.Opis ?? zaznaczonaPostac.Klasa.Opis;
             level.Text = zaznaczonaPostac.Level.ToString();
             udzwig.Text = zaznaczonaPostac.Ekwipunek.Sum(przedmiot => przedmiot.Waga) + "/" + zaznaczonaPostac.Udzwig.ToString();
@@ -72,28 +78,37 @@ namespace ProjektEkwipunek
                 row["Nazwa"] = przedmiot.Nazwa;
                 row["Waga"] = przedmiot.Waga;
                 string wymog = "";
-                foreach (var item in przedmiot.Wymagania)
+                if (przedmiot.Wymagania.Count != 0) // jezeli wymagania nie sa puste
                 {
-                    wymog += item.Key.ToString() + " = " + item.Value.ToString();
-                    wymog += ", \n";
+                    foreach (var item in przedmiot.Wymagania) // dla kazdego wymagania w przedmiocie
+                    {
+                        wymog += item.Key.ToString() + " = " + item.Value.ToString(); // okreslamy wymog na klucz i wartosc 
+                        wymog += ", \n";
+                    }
+                    row["Wymagania"] = wymog.Remove(wymog.Length - 3); //do wiersza wiersz wymagania przypisujemy bez ostatnich trzech znakow (entera tabulatora i przecinka)
                 }
-                row["Wymagania"] = wymog.Remove(wymog.Length - 3);
-                string wlsciwosc = "";
-                foreach (var item in przedmiot.Wlasciwosci)
-                {
-                    wlsciwosc += item + ", \n";
 
-                }
-                row["Właściwości"] = wlsciwosc.Remove(wlsciwosc.Length - 3);
-                string bonus = "";
-                foreach (var item in przedmiot.Bonusy)
+                if (przedmiot.Wlasciwosci.Count != 0)
                 {
-                    bonus += item.DoCzego + " = " + item.Premia;
-                    bonus += ", \n";
+                    string wlsciwosc = "";
+                    foreach (var item in przedmiot.Wlasciwosci)
+                    {
+                        wlsciwosc += item + ", \n";
+
+                    }
+                    row["Właściwości"] = wlsciwosc.Remove(wlsciwosc.Length - 3);
                 }
-                row["Bonusy"] = bonus.Remove(bonus.Length - 3);
-                //bonus = string.Join(", \n", przedmiot.Bonusy.Select(item => item.DoCzego + " = " + item.Premia));
-                //row["Bonusy"] = bonus;
+
+                if (przedmiot.Bonusy.Count != 0)
+                {
+                    string bonus = "";
+                    foreach (var item in przedmiot.Bonusy)
+                    {
+                        bonus += item.DoCzego + " = " + item.Premia;
+                        bonus += ", \n";
+                    }
+                    row["Bonusy"] = bonus.Remove(bonus.Length - 3);
+                }
 
 
 
@@ -175,7 +190,15 @@ namespace ProjektEkwipunek
                         break;
                 }
                 // zaloz i zmien kolor
-                postac.Zaloz(czesc, prezedmiot);
+                try
+                {
+                    postac.Zaloz(czesc, prezedmiot);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ograniczenia klasowe, nie mozna zalozyc");
+                    return;
+                }
                 dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green;
             }
             Wyswietl(postac);
@@ -192,6 +215,25 @@ namespace ProjektEkwipunek
             var formSklep = new SklepForm(ListaPostaci.SelectedItem as Postac, this);
             formSklep.Show();
 
+        }
+
+        private void DodajPostacButton_Click(object sender, EventArgs e)
+        {
+            var okno = new OknoPostaciForm(this);
+            okno.Show();
+            this.Visible = false;
+        }
+
+        private void EdytujPostacButton_Click(object sender, EventArgs e)
+        {
+            var okno = new OknoPostaciForm(this,ListaPostaci.SelectedItem as Postac);
+            okno.Show();
+            this.Visible = false;
+        }
+
+        private void UsunPostacButton_Click(object sender, EventArgs e)
+        {
+            this.bindinglist.Remove(ListaPostaci.SelectedItem as Postac);
         }
     }
 }

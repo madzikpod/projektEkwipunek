@@ -18,8 +18,8 @@ namespace ProjektEkwipunek
         }
         public KlasaPostaci Klasa { get; protected set; }
         public Guid Id { get; private set; }
-        public string Imie { get; private set; }
-        public int Level { get; private set; }
+        public string Imie { get;  set; }
+        public int Level { get;  set; }
         public double Moc { get; protected set; }
         public double Obrona { get; protected set; }
         public double Udzwig { get; protected set; }
@@ -70,13 +70,7 @@ namespace ProjektEkwipunek
         public string Opis { get; set; }
         public double Obciazenie { get
             {
-                double suma = 0;
-                suma += LewaReka?.Waga ?? 0;
-                suma += PrawaReka?.Waga ?? 0;
-                suma += Stroj?.Waga ?? 0;
-                suma += Buty?.Waga ?? 0;
-                suma += NakrycieGlowy?.Waga ?? 0;
-                return suma;
+                return Ekwipunek.Sum(e => e.Waga);
             }
              }
         public List<Przedmiot> Ekwipunek { get; private set; }
@@ -221,7 +215,7 @@ namespace ProjektEkwipunek
 
             return true;
         }
-        protected void LevelUp(int level)
+        public void LevelUp(int level)
         {
             if (level > 1)
             {

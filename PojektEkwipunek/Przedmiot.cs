@@ -42,11 +42,11 @@ namespace ProjektEkwipunek
         }
         public Guid Id { get; private set; }
         public string Opis { get; set; }
-        public TypPrzedmiotu Typ { get; private set; }
-        public double Waga { get; private set; }
-        public string Nazwa { get; private set; }
+        public TypPrzedmiotu Typ { get;  set; }
+        public double Waga { get;  set; }
+        public string Nazwa { get;  set; }
         //wymagania co potrzeba aby zalozyc
-        public Dictionary<StatystykiPostaci, double> Wymagania { get; private set; }
+        public Dictionary<StatystykiPostaci, double> Wymagania { get;  set; }
         //właściwości ile i co zwiekszy przedmiot
         public List<string> Wlasciwosci { get; set; }
         public List<Bonus> Bonusy { get; private set; }
